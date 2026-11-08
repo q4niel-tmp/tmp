@@ -1,0 +1,7 @@
+*
+!.github/
+!.github/workflows
+!.github/workflows/gitlab_mirror.yml
+
+!.gitignore
+!readme.md
