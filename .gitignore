@@ -4,4 +4,5 @@
 !.github/workflows/gitlab_mirror.yml
 
 !.gitignore
+!data.txt
 !readme.md
