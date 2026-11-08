@@ -1,8 +1,8 @@
 name: GitLab Mirror
 on:
   push:
-    branches: ['']
-    tags: ['']
+    branches: ['**']
+    tags: ['**']
   delete:
   workflow_dispatch:
 
@@ -14,15 +14,16 @@ jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
-      
-uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
-      
-name: Push all branches and tags
-      env:
-        GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
-      run: |
-        git push --prune \"https://gitlab.com/GROUP/PROJECT.git" \'+refs/remotes/origin/:refs/heads/' \'+refs/tags/:refs/tags/'
+      - name: Push all branches and tags
+        env:
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+        run: |
+          git push --prune \
+            "https://oauth2:${GITLAB_TOKEN}@gitlab.com/GROUP/PROJECT.git" \
+            '+refs/remotes/origin/*:refs/heads/*' \
+            '+refs/tags/*:refs/tags/*'
